@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lehrer-Info</title>
+</head>
+<body>
+<h2>Hier kannst du schnell mit dem Lehrer-Kürzel die Lehrerinformationen einsehen!</h2>
+ <input id="input001" type="text" maxlength="3" placeholder="Kürzel"/><button onclick="btn001()">Prüfen</button>
+ <p id="message001"></p>
+ <h5>© Eric Anhalt 2018</h5>  
+    <div style="position: absolute; bottom: 5px;">
+ <a href="mailto:eric.anhalt@gymnasium-essen-werden.de">Kontaktiere mich bei Fehlern, Anregungen oder Wünschen.</a> <a>Stand: 12.09.2018 - Es wird keine Haftung für Fehlinformationen übernommen.</a>
+    </div>
+</div>
+<script>
+function btn001() {
+var text001;
+var lehrer001 = input001.value;
+switch (lehrer001) {
+case "AL":
+text001 = "Es handelt sich um Herrn Albrecht. Dieser Lehrer unterrichtet Informatik und Chemie.";
+break;
+case "AN":
+text001 = "Es handelt sich um Frau Augustin, A. Diese Lehrerin unterrichtet evangelische Religion.";
+break;
+case "AU":
+text001 = "Es handelt sich um Herrn Augustin, H. Dieser Lehrer unterrichtet Deutsch, Geschichte und Spanisch.";
+break;
+case "BA":
+text001 = "Es handelt sich um Frau Bach. Diese Lehrerin unterrichtet Deutsch und Erdkunde.";
+break;
+case "BD":
+text001 = "Es handelt sich um Frau Badiou. Diese Lehrerin unterrichtet Latein und Französisch.";
+break;
+case "BF":
+text001 = "Es handelt sich um Herrn Berghoff. Dieser Lehrer unterrichtet Physik und Biologie.";
+break;
+case "BG":
+text001 = "Es handelt sich um Frau Berg-Rose. Diese Lehrerin unterrichtet Deutsch, Englisch und praktische Philosophie.";
+break;
+case "BL":
+text001 = "Es handelt sich um Herrn Blech. Dieser Lehrer unterrichtet Physik und evangelische Religion.";
+break;
+case "BO":
+text001 = "Es handelt sich um Herrn Bonnekessel. Dieser Lehrer unterrichtet Sport und Latein.";
+break;
+case "BS":
+text001 = "Es handelt sich um Frau Bosset. Diese Lehrerin unterrichtet Englisch und Kunst.";
+break;
+case "BR":
+text001 = "Es handelt sich um Herrn Brill. Dieser Lehrer unterrichtet Deutsch und Englisch.";
+break;
+case "BZ":
+text001 = "Es handelt sich um Frau Buchholz. Diese Lehrerin unterrichtet Chemie und Kunst.";
+break;
+case "MB":
+text001 = "Es handelt sich um Herrn Dr. Buhr. Dieser Lehrer unterrichtet Deutsch und Musik.";
+break;
+case "BU":
+text001 = "Es handelt sich um Herrn Dr. Busse. Dieser Lehrer unterrichtet Physik und Philosophie.";
+break;
+case "CO":
+text001 = "Es handelt sich um Frau Colesie. Diese Lehrerin unterrichtet Französisch und Geschichte.";
+break;
+case "DI":
+text001 = "Es handelt sich um Frau Dittmann. Diese Lehrerin unterrichtet Italienisch und Deutsch.";
+break;
+case "DO":
+text001 = "Es handelt sich um Frau Dornebeck. Diese Lehrerin unterrichtet Deutsch und Erdkunde.";
+break;
+case "DU":
+text001 = "Es handelt sich um Herrn Dücker. Dieser Lehrer unterrichtet Musik.";
+break;
+case "EC":
+text001 = "Es handelt sich um Herrn Eickmann. Dieser Lehrer unterrichtet Mathe und Englisch.";
+break;
+case "ED":
+text001 = "Es handelt sich um Herrn Eldesouki. Dieser Lehrer unterrichtet Tanz.";
+break;
+case "EL":
+text001 = "Es handelt sich um Herrn Ellenbruch. Dieser Lehrer unterrichtet Englisch und Kunst.";
+break;
+case "EN":
+text001 = "Es handelt sich um Herrn Enk. Dieser Lehrer unterrichtet Mathe und Erdkunde.";
+break;
+case "ER":
+text001 = "Es handelt sich um Frau Ernst. Diese Lehrerin unterrichtet Musik.";
+break;
+case "GM":
+text001 = "Es handelt sich um Herrn Gemein. Dieser Lehrer unterrichtet Englisch und Kunst.";
+break;
+case "GO":
+text001 = "Es handelt sich um Frau Gollan. Diese Lehrerin unterrichtet Kunst.";
+break;
+case "GR":
+text001 = "Es handelt sich um Herrn Grote. Dieser Lehrer unterrichtet Physik und Mathe.";
+break;
+case "HA":
+text001 = "Es handelt sich um Herrn Haase. Dieser Lehrer unterrichtet Biologie und Sozialwissenschaften.";
+break;
+case "HE":
+text001 = "Es handelt sich um Frau Heller-Berendes. Diese Lehrerin unterrichtet Biologie und Deutsch.";
+break;
+case "HC":
+text001 = "Es handelt sich um Herrn Dr. Hengstermann. Dieser Lehrer unterrichtet Latein, Englisch, katholische Religion und praktische Philosophie.";
+break;
+case "HM":
+text001 = "Es handelt sich um Frau Hermey, C. Diese Lehrerin unterrichtet Englisch und Biologie.";
+break;
+case "HY":
+text001 = "Es handelt sich um Herrn Hermey, M. Dieser Lehrer unterrichtet Biologie, Sport und Mathe.";
+break;
+case "HI":
+text001 = "Es handelt sich um Herrn Hinz. Dieser Lehrer unterrichtet Französisch und Musik.";
+break;
+case "HP":
+text001 = "Es handelt sich um Frau Hörentrup, C. Diese Lehrerin unterrichtet Deutsch und evangelische Religion.";
+break;
+case "HO":
+text001 = "Es handelt sich um Herrn Hörentrup, J. Dieser Lehrer unterrichtet Mathe und Chemie.";
+break;
+case "JA":
+text001 = "Es handelt sich um Frau Jacobs-Neumann. Diese Lehrerin unterrichtet Erdkunde und Politik.";
+break;
+case "JU":
+text001 = "Es handelt sich um Herrn Jungblut. Dieser Lehrer unterrichtet Sport und Politik.";
+break;
+case "KS":
+text001 = "Es handelt sich um Frau Kaiser. Diese Lehrerin unterrichtet Deutsch und Musik.";
+break;
+case "KA":
+text001 = "Es handelt sich um Frau Kalb. Diese Lehrerin unterrichtet Französisch und Geschichte.";
+break;
+case "KW":
+text001 = "Es handelt sich um Frau Dr. Kallweit. Diese Lehrerin unterrichtet Mathe und Chemie.";
+break;
+case "KN":
+text001 = "Es handelt sich um Herrn. Dieser Lehrer unterrichtet Tanz.";
+break;
+case "KK":
+text001 = "Es handelt sich um Frau Kill-Heimbürger. Diese Lehrerin unterrichtet Deutsch und katholische Religion.";
+break;
+case "KM":
+text001 = "Es handelt sich um Frau Kirchmeier. Diese Lehrerin unterrichtet Deutsch und Englisch.";
+break;
+case "KG":
+text001 = "Es handelt sich um Frau Klingsch. Diese Lehrerin unterrichtet Englisch und Biologie.";
+break;
+case "KO":
+text001 = "Es handelt sich um Herrn Dr. Kohnen. Dieser Lehrer unterrichtet Biologie und Chemie.";
+break;
+case "KL":
+text001 = "Es handelt sich um Frau Kolip. Diese Lehrerin unterrichtet Deutsch und Englisch.";
+break;
+case "KJ":
+text001 = "Es handelt sich um Frau Krieger. Diese Lehrerin unterrichtet Deutsch und Erdkunde.";
+break;
+case "KR":
+text001 = "Es handelt sich um Herrn Krister. Dieser Lehrer unterrichtet Englisch und Geschichte.";
+break;
+case "KI":
+text001 = "Es handelt sich um Herrn Kucki. Dieser Lehrer unterrichtet Englisch und Sport.";
+break;
+case "KP":
+text001 = "Es handelt sich um Frau Küpper. Diese Lehrerin unterrichtet Mathe und Sport.";
+break;
+case "KU":
+text001 = "Es handelt sich um Frau Kukuczka. Diese Lehrerin unterrichtet Deutsch und katholische Religion.";
+break;
+case "LA":
+text001 = "Es handelt sich um Herrn Lambertz. Dieser Lehrer unterrichtet Englisch und Erdkunde.";
+break;
+case "LS":
+text001 = "Es handelt sich um Frau Lankes. Diese Lehrerin unterrichtet Mathe und Kunst.";
+break;
+case "LN":
+text001 = "Es handelt sich um Herrn Lindner. Dieser Lehrer unterrichtet Mathe und Latein.";
+break;
+case "LO":
+text001 = "Es handelt sich um Frau Lohaus. Diese Lehrerin unterrichtet Musik und katholische Religion.";
+break;
+case "LOI":
+text001 = "Es handelt sich um Herrn Loigge. Dieser Lehrer unterrichtet Tanz.";
+break;
+case "LU":
+text001 = "Es handelt sich um Frau Luft. Diese Lehrerin unterrichtet Deutsch und Französisch.";
+break;
+case "LK":
+text001 = "Es handelt sich um Frau Lukas. Diese Lehrerin unterrichtet Deutsch und Geschichte.";
+break;
+case "MA":
+text001 = "Es handelt sich um Frau Mauer. Diese Lehrerin unterrichtet Deutsch und Geschichte.";
+break;
+case "ME":
+text001 = "Es handelt sich um Frau Merten. Diese Lehrerin unterrichtet Spanisch und Englisch.";
+break;
+case "NA":
+text001 = "Es handelt sich um Frau Natalello. Diese Lehrerin unterrichtet Spanisch und Italienisch.";
+break;
+case "NI":
+text001 = "Es handelt sich um Frau Niedeggen. Diese Lehrerin unterrichtet Musik und katholische Religion.";
+break;
+case "ND":
+text001 = "Es handelt sich um Frau Nieder. Diese Lehrerin unterrichtet Latein und Englisch.";
+break;
+case "NU":
+text001 = "Es handelt sich um Frau Nusselein. Diese Lehrerin unterrichtet Deutsch und Französisch.";
+break;
+case "OF":
+text001 = "Es handelt sich um Frau Offer. Diese Lehrerin unterrichtet Italienisch und Deutsch.";
+break;
+case "OV":
+text001 = "Es handelt sich um Herrn Overbeck. Dieser Lehrer unterrichtet Erdkunde und Sport.";
+break;
+case "PH":
+text001 = "Es handelt sich um Frau Philippsen. Diese Lehrerin unterrichtet Englisch und Deutsch.";
+break;
+case "PI":
+text001 = "Es handelt sich um Frau Piva. Diese Lehrerin unterrichtet Englisch und Geschichte.";
+break;
+case "PO":
+text001 = "Es handelt sich um Frau Pomp. Diese Lehrerin unterrichtet Tanz.";
+break;
+case "PZ":
+text001 = "Es handelt sich um Herrn Przybilla. Dieser Lehrer unterrichtet Biologie und Sport.";
+break;
+case "RK":
+text001 = "Es handelt sich um Frau Ricken. Diese Lehrerin unterrichtet Mathe und Chemie.";
+break;
+case "RI":
+text001 = "Es handelt sich um Herrn Rieder. Dieser Lehrer unterrichtet Mathe, Sport und Physik.";
+break;
+case "SB":
+text001 = "Es handelt sich um Frau Schauenburg. Diese Lehrerin unterrichtet Tanz.";
+break;
+case "SV":
+text001 = "Es handelt sich um Frau Scheuvens. Diese Lehrerin unterrichtet Mathe und Deutsch.";
+break;
+case "SR":
+text001 = "Es handelt sich um Frau Schmerler. Diese Lehrerin unterrichtet Mathe und Sport.";
+break;
+case "SZ":
+text001 = "Es handelt sich um Herrn Schmitz. Dieser Lehrer unterrichtet Mathe und Chemie";
+break;
+case "SÖ":
+text001 = "Es handelt sich um Frau Schönau. Diese Lehrerin unterrichtet Deutsch und Englisch.";
+break;
+case "SC":
+text001 = "Es handelt sich um Frau Schönemann. Diese Lehrerin unterrichtet Englisch und Französisch.";
+break;
+case "SF":
+text001 = "Es handelt sich um Frau Scholich. Diese Lehrerin unterrichtet Französisch und Geschichte.";
+break;
+case "Sd":
+text001 = "Es handelt sich um Frau Schwander. Diese Referendarin unterrichtet Tanz.";
+break;
+case "SN":
+text001 = "Es handelt sich um Frau Söllner. Diese Lehrerin unterrichtet Erdkunde, Sport und Mathe.";
+break;
+case "ST":
+text001 = "Es handelt sich um Frau Stahl. Diese Lehrerin unterrichtet Mathe und Biologie.";
+break;
+case "SH":
+text001 = "Es handelt sich um Frau Dr. Strehl. Diese Lehrerin unterrichtet Chemie und Physik.";
+break;
+case "TB":
+text001 = "Es handelt sich um Frau Tebart. Diese Lehrerin unterrichtet Erdkunde.";
+break;
+case "TK":
+text001 = "Es handelt sich um Frau Tekülve. Diese Lehrerin unterrichtet Deutsch und Erdkunde.";
+break;
+case "TR":
+text001 = "Es handelt sich um Herrn Tröger. Dieser Lehrer unterrichtet Deutsch und Chemie.";
+break;
+case "UT":
+text001 = "Es handelt sich um Frau Unterbarnscheidt. Diese Lehrerin unterrichtet Deutsch und Englisch.";
+break;
+case "UF":
+text001 = "Es handelt sich um Frau Unterfeld. Diese Lehrerin unterrichtet Deutsch und Geschichte.";
+break;
+case "VO":
+text001 = "Es handelt sich um Herrn Vorholt. Dieser Lehrer unterrichtet Kunst, Philosophie und Englisch.";
+break;
+case "WE":
+text001 = "Es handelt sich um Frau Westphal. Diese Lehrerin unterrichtet Englisch und Sport.";
+break;
+case "WI":
+text001 = "Es handelt sich um Herrn Wiesemann. Dieser Lehrer unterrichtet Philosophie und Mathe.";
+break;
+case "WG":
+text001 = "Es handelt sich um Herrn Wiggen. Dieser Lehrer unterrichtet Mathe, Erdkunde und katholische Religion.";
+break;
+case "WL":
+text001 = "Es handelt sich um Frau Wilms. Diese Lehrerin unterrichtet Biologie und Erdkunde.";
+break;
+case "Wr":
+text001 = "Es handelt sich um Frau Winkler. Diese/r Referendar/in unterrichtet Deutsch und Englisch.";
+break;
+case "WT":
+text001 = "Es handelt sich um Frau Wintering. Diese Lehrerin unterrichtet Deutsch und Politik.";
+break;
+case "WD":
+text001 = "Es handelt sich um Herrn Wodopia. Dieser Lehrer unterrichtet Deutsch und Geschichte und katholische Religion.";
+break;
+case "Be":
+text001 = "Es handelt sich um Herrn Beeck. Dieser Referendar unterrichtet Informatik und Mathe.";
+break;
+case "Dm":
+text001 = "Es handelt sich um Frau Dreesmann. Diese Referendarin unterrichtet Biologie und Sport.";
+break;
+case "Eg":
+text001 = "Es handelt sich um Frau Elling. Diese Referendarin unterrichtet Chemie und Sport.";
+break;
+case "Gi":
+text001 = "Es handelt sich um Herrn Giuri. Dieser Referendar unterrichtet Italienisch und Spanisch.";
+break;
+case "Kt":
+text001 = "Es handelt sich um Frau Kirkopoulos. Diese Referendarin unterrichtet Deutsch und Englisch.";
+break;
+case "Mc":
+text001 = "Es handelt sich um Frau Macanovic. Diese Referendarin unterrichtet Geschichte katholische Religion.";
+break;
+case "Pa":
+text001 = "Es handelt sich um Frau Pater. Diese Referendarin unterrichtet Deutsch und Spanisch.";
+break;
+case "Sj":
+text001 = "Es handelt sich um Herrn Schotzki. Dieser Referendar unterrichtet Englisch und Physik.";
+break;
+case "Sp":
+text001 = "Es handelt sich um Herrn Sinkemat. Dieser Referendar unterrichtet Musik.";
+break;
+case "Wk":
+text001 = "Es handelt sich um Herrn Werner. Dieser Referendar unterrichtet Deutsch und Geschichte.";
+break;
+default:
+text001 = "Dieses Kürzel gibt es nicht. Bitte überprüfe deine Eingabe (auch auf Groß- und Kleinschreibung!)";
+}
+document.getElementById("message001").innerHTML = text001;
+}
+</script>
+</body>
+</html>
