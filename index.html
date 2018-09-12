@@ -49,6 +49,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
 <title>Lehrer-Info</title>
 </head>
 <body>
+<form>
 <h2>Hier kannst du schnell mit dem Lehrer-Kürzel die Lehrerinformationen einsehen!</h2>
  <input id="input001" type="text" maxlength="3" placeholder="Kürzel"/><button onclick="btn001()">Prüfen</button>
  <p id="message001"></p>
@@ -66,6 +67,8 @@ input.addEventListener("keyup", function(event) {
     }
 });
 </script>
+</form> 
+ 
 <script>
 function btn001() {
 var text001;
