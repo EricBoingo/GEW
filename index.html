@@ -35,6 +35,9 @@
     ──▀████████▀▀███████▀──────────
 
 CHANGELOG
+0.2.0 - 14.09.2018
+Einige Fehler bei Lehrern wurden behoben. Außerdem ist die Eingabe nun unabhängig von Groß- und Kleinschreibung.
+
 0.1.12 - 13.09.2018
 Ein netter Discord Link wurde hinzugefügt. Komm drauf, ansonsten verpasst du ne Menge. https://discord.gg/cBYeegX (⌐■_■)
 
@@ -89,7 +92,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
 <script>
 function btn001() {
 var text001;
-var lehrer001 = input001.value;
+var lehrer001 = input001.value.toUpperCase();
 switch (lehrer001) {
 case "AL":
 text001 = "Es handelt sich um Herrn Albrecht. Dieser Lehrer unterrichtet Informatik und Chemie und leitet die Informatik-AG.";
@@ -131,7 +134,7 @@ case "BJ":
 text001 = "Es handelt sich um Herrn Dr. Buhr. Dieser Lehrer unterrichtet Deutsch und Musik und leitet die Orchester-AG.";
 break;
 case "MB":
-text001 = "Es handelt sich um Herrn Buhr, M. Dieser Lehrer unterrichtet Englisch und Spanisch.";
+text001 = "Es handelt sich um Frau Buhr, M. Diese Lehrerin unterrichtet Englisch und Spanisch.";
 break;
 case "BU":
 text001 = "Es handelt sich um Herrn Dr. Busse. Dieser Lehrer unterrichtet Physik und Philosophie und leitet die Bühnentechnik-AG, die Physik & Technik AG, und die Jugend forscht AG mit Herrn Dr. Kohnen.";
@@ -179,7 +182,7 @@ case "HE":
 text001 = "Es handelt sich um Frau Heller-Berendes. Diese Lehrerin unterrichtet Biologie und Deutsch.";
 break;
 case "HC":
-text001 = "Es handelt sich um Herrn Dr. Hengstermann. Dieser Lehrer unterrichtet Latein, Englisch, katholische Religion und praktische Philosophie und leitet die Religion/Philosophie bilingual-AG.";
+text001 = "Es handelt sich um Herrn Dr. Hengstermann. Dieser Lehrer unterrichtet Latein, Englisch, katholische Religion und praktische Philosophie und leitet die Religion/Philosophie bilingual-AG und die Altgriechisch-AG.";
 break;
 case "HM":
 text001 = "Es handelt sich um Frau Hermey, C. Diese Lehrerin unterrichtet Englisch und Biologie.";
@@ -323,7 +326,7 @@ case "SZ":
 text001 = "Es handelt sich um Herrn Schmitz. Dieser Lehrer unterrichtet Mathe und Chemie";
 break;
 case "SÖ":
-text001 = "Es handelt sich um Frau Schönau. Diese Lehrerin unterrichtet Deutsch und Englisch.";
+text001 = "Es handelt sich um Frau Schönau. Die Schulleiterin unterrichtet Deutsch und Englisch.";
 break;
 case "SC":
 text001 = "Es handelt sich um Frau Schönemann. Diese Lehrerin unterrichtet Englisch und Französisch.";
@@ -374,7 +377,7 @@ case "WL":
 text001 = "Es handelt sich um Frau Wilms. Diese Lehrerin unterrichtet Biologie und Erdkunde.";
 break;
 case "WR":
-text001 = "Es handelt sich um Frau Winkler. Diese/r Referendar/in unterrichtet Deutsch und Englisch.";
+text001 = "Es handelt sich um Frau Winkler. Diese Referendarin unterrichtet Deutsch und Englisch.";
 break;
 case "WT":
 text001 = "Es handelt sich um Frau Wintering. Diese Lehrerin unterrichtet Deutsch und Politik.";
@@ -382,40 +385,40 @@ break;
 case "WD":
 text001 = "Es handelt sich um Herrn Wodopia. Dieser Lehrer unterrichtet Deutsch und Geschichte und katholische Religion.";
 break;
-case "Be":
+case "BE":
 text001 = "Es handelt sich um Herrn Beeck. Dieser Referendar unterrichtet Informatik und Mathe.";
 break;
-case "Dm":
-text001 = "Es handelt sich um Frau Dreesmann. Diese Referendarin unterrichtet Biologie und Sport und leitet die mit Elling die Bio-Chemie-AG.";
+case "DM":
+text001 = "Es handelt sich um Frau Dreesmann. Diese Referendarin unterrichtet Biologie und Sport und leitet mit Elling die Bio-Chemie-AG.";
 break;
-case "Eg":
+case "EG":
 text001 = "Es handelt sich um Frau Elling. Diese Referendarin unterrichtet Chemie und Sport und leitet mit Dreesmann die Bio-Chemie-AG.";
 break;
-case "Gi":
+case "GI":
 text001 = "Es handelt sich um Herrn Giuri. Dieser Referendar unterrichtet Italienisch und Spanisch.";
 break;
-case "Kt":
+case "KT":
 text001 = "Es handelt sich um Frau Kirkopoulos. Diese Referendarin unterrichtet Deutsch und Englisch.";
 break;
-case "Mc":
+case "MC":
 text001 = "Es handelt sich um Frau Macanovic. Diese Referendarin unterrichtet Geschichte katholische Religion.";
 break;
-case "Pa":
+case "PA":
 text001 = "Es handelt sich um Frau Pater. Diese Referendarin unterrichtet Deutsch und Spanisch und leitet die DELE-AG, und die Rechtschreib-AG mit Frau Unterfeld.";
 break;
-case "Sj":
+case "SJ":
 text001 = "Es handelt sich um Herrn Schotzki. Dieser Referendar unterrichtet Englisch und Physik.";
 break;
-case "Sp":
+case "SP":
 text001 = "Es handelt sich um Herrn Sinkemat. Dieser Referendar unterrichtet Musik und leitet die Jazz-Band-AG.";
 break;
-case "Wk":
+case "WK":
 text001 = "Es handelt sich um Herrn Werner. Dieser Referendar unterrichtet Deutsch und Geschichte.";
 break;
-case "Ru":
+case "RU":
 text001 = "Es handelt sich um Herrn Rusch. Dieser Referendar unterrichtet Englisch und Geschichte.";
 break;
-case "Sl":
+case "SL":
 text001 = "Es handelt sich um Frau Stahl, L. Diese Referendarin unterrichtet Französisch und Erdkunde.";
 break;
 case "EBG":
@@ -424,14 +427,8 @@ break;
 case "LOL":
 text001 = "LOOOOOOOOOOOOL!!!";
 break;
-case "lol":
-text001 = "loooooool";
-break;
-case "Lol":
-text001 = "Loool?.";
-break;
 default:
-text001 = "Dieses Kürzel gibt es nicht. Bitte überprüfe deine Eingabe (auch auf Groß- und Kleinschreibung!)";
+text001 = "Dieses Kürzel gibt es nicht. Bitte überprüfe deine Eingabe";
 }
 document.getElementById("message001").innerHTML = text001;
 }
