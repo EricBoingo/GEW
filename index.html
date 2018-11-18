@@ -35,12 +35,15 @@
     ──▀████████▀▀███████▀──────────
 
 CHANGELOG
-0.2.5 - 16.11.2018
-Die Seite hat eine Schönheits-OP gehabt! Ab sofort sieht alles besser aus, man kann nach Lehrernamen suchen, es gibt ähnliche Ergebnisse, und man kann E-Mails schreiben!
-Außerdem haben wir die 1.000 Codezeilen geknackt. Wie GEIL ist DAS denn bitte?! 
+0.2.5 - 18.11.2018
+BILDER! Endlich gibt es geile Bilder für jeden Lehrer! Lehrer können mich unter eric.anhalt@gymnasium-essen-werden.de kontaktieren, damit ein Bild von ihnen hinzugefügt wird.
 
-0.2.3 - 13.11.
-Wann sind die nächsten Ferien?! Ich muss e2018s unbedingt wissen! Zum Glück gibt es jetzt einen Knopf dafür. Gott sei Dank! Gepriesen seie der Knopf!
+0.2.4 - 16.11.2018
+Die Seite hat eine Schönheits-OP gehabt! Ab sofort sieht alles besser aus, man kann nach Lehrernamen suchen, es gibt ähnliche Ergebnisse, und man kann E-Mails schreiben!
+Wie GEIL ist DAS denn bitte?! 
+
+0.2.3 - 13.11.2018
+Wann sind die nächsten Ferien?! Ich muss es unbedingt wissen! Zum Glück gibt es jetzt einen Knopf dafür. Gott sei Dank! Gepriesen seie der Knopf!
 
 0.2.2 - 19.09.2018
 Mit der Hilfe von Jan hat die Seite nun ein ganz ordentliches css Layout. Wichtig für uns war es auch hier, die benötigten Daten
@@ -115,7 +118,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
                 </li>
             </ul>
 
-            <h3 v-if="!bestResult && (!results || results.length === 0)">Keine Ergebnisse</h3>
+            <h3 v-if="!bestResult && (!results || results.length === 0) && input.length > 0">Keine Ergebnisse</h3>
 
             <h5>© Eric Anhalt & Jan Schnorrenberg 2018</h5>
             <a class="button" href="https://discord.gg/cBYeegX">GEW-DISCORD</a>
@@ -152,10 +155,14 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     Vue.component('teacher', {
         props: ['teacher'],
         template: `
-            <table v-if="teacher">
+        <div v-if="teacher" class="result">
+                
+                <img v-if="teacher.img" :src="teacher.img"/>
+            <table>
             <tr>
                 <td><b>Kürzel</b></td>
                 <td>{{ teacher.short.toUpperCase() }}</td>
+                
             </tr>
             <tr>
                 <td><b>Name</b></td>
@@ -173,7 +180,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
                 <td><b>Email</b></td>
                 <td><a :href="'mailto:' + teacher.email + '@gymnasium-essen-werden.de'">{{ teacher.email }}</a></td>
             </tr>
-            </table>`
+            </table>
+        </div>`
     });
 
     const teachers = [
@@ -185,7 +193,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Informatik", "Chemie"],
             ags: ["Informatik-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/.png"
         },
         {
             short: "an",
@@ -195,7 +203,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Evangelische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/an.png"
         },
         {
             short: "au",
@@ -205,7 +213,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Geschichte", "Spanisch"],
             ags: ["Poetry Slam-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/au.png"
         },
         {
             short: "ba",
@@ -215,7 +223,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ba.png"
         },
         {
             short: "bd",
@@ -225,7 +233,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Latein", "Französisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bd.png"
         },
         {
             short: "bf",
@@ -235,7 +243,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Physik", "Biologie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bf.png"
         },
         {
             short: "bg",
@@ -245,7 +253,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch", "Praktische Philosophie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bg.png"
         },
         {
             short: "bl",
@@ -255,7 +263,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Physik", "Evangelische Religion"],
             ags: ["Astronomie-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bl.png"
         },
         {
             short: "bo",
@@ -265,7 +273,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Sport", "Latein"],
             ags: ["Fußball-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bo.png"
         },
         {
             short: "bs",
@@ -275,7 +283,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Kunst"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bs.png"
         },
         {
             short: "br",
@@ -285,7 +293,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/br.png"
         },
         {
             short: "bz",
@@ -295,7 +303,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Chemie", "Kunst"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bz.png"
         },
         {
             short: "bj",
@@ -305,7 +313,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Musik"],
             ags: ["Orchester-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bj.png"
         },
         {
             short: "mb",
@@ -315,7 +323,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Spanisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/mb.png"
         },
         {
             short: "bu",
@@ -325,7 +333,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Physik", "Philosophie"],
             ags: ["Bühnentechnik-AG", "Jugend forscht-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/bu.png"
         },
         {
             short: "co",
@@ -335,7 +343,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Französisch", "Geschichte"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/co.png"
         },
         {
             short: "di",
@@ -345,7 +353,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Italienisch", "Deutsch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/di.png"
         },
         {
             short: "do",
@@ -355,7 +363,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/do.png"
         },
         {
             short: "du",
@@ -365,7 +373,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Musik"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/du.png"
         },
         {
             short: "ec",
@@ -375,7 +383,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Englisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ec.png"
         },
         {
             short: "ed",
@@ -385,7 +393,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ed.png"
         },
         {
             short: "el",
@@ -395,7 +403,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Kunst"],
             ags: ["Bühnenbild-AG", "Rock- und Popmusik AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/el.png"
         },
         {
             short: "en",
@@ -405,7 +413,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/en.png"
         },
         {
             short: "er",
@@ -415,7 +423,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Musik"],
             ags: ["Chor-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/er.png"
         },
         {
             short: "gm",
@@ -425,7 +433,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Kunst"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/gm.png"
         },
         {
             short: "go",
@@ -435,7 +443,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Kunst"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/go.png"
         },
         {
             short: "gr",
@@ -445,7 +453,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Physik", "Mathe"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/gr.png"
         },
         {
             short: "ha",
@@ -455,7 +463,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Sozialwissenschaften"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ha.png"
         },
         {
             short: "he",
@@ -465,7 +473,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Deutsch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/he.png"
         },
         {
             short: "hc",
@@ -475,7 +483,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Latein", "Englisch", "Katholische Religion", "Praktische Philosophie"],
             ags: ["Religion/Philosophie bilingual-AG", "Altgriechisch-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/hc.png"
         },
         {
             short: "hm",
@@ -485,7 +493,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Biologie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/hm.png"
         },
         {
             short: "hy",
@@ -495,7 +503,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Sport", "Mathe"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/hy.png"
         },
         {
             short: "hi",
@@ -505,7 +513,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Französisch", "Musik"],
             ags: ["Chor-AG", "Orchester-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/hi.png"
         },
         {
             short: "hp",
@@ -515,7 +523,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Evangelische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/hp.png"
         },
         {
             short: "ho",
@@ -525,7 +533,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Chemie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ho.png"
         },
         {
             short: "ja",
@@ -535,7 +543,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Erdkunde", "Politik"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ja.png"
         },
         {
             short: "ju",
@@ -545,7 +553,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Sport", "Politik"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ju.png"
         },
         {
             short: "ka",
@@ -555,7 +563,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Französisch", "Geschichte"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ka.png"
         },
         {
             short: "kw",
@@ -565,7 +573,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Chemie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kw.png"
         },
         {
             short: "kn",
@@ -575,7 +583,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kn.png"
         },
         {
             short: "kk",
@@ -585,7 +593,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Katholische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kk.png"
         },
         {
             short: "km",
@@ -595,7 +603,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: ["Schülerzeitung-AG", "Theater-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/km.png"
         },
         {
             short: "kg",
@@ -605,7 +613,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Biologie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kg.png"
         },
         {
             short: "ko",
@@ -615,7 +623,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Chemie"],
             ags: ["Chemie-AG", "Jugend forscht-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ko.png"
         },
         {
             short: "kl",
@@ -625,7 +633,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kl.png"
         },
         {
             short: "kj",
@@ -635,7 +643,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kj.png"
         },
         {
             short: "kr",
@@ -645,7 +653,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Geschichte"],
             ags: ["Geschichts-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kr.png"
         },
         {
             short: "ki",
@@ -655,7 +663,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Sport"],
             ags: ["Schwimmen-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ki.png"
         },
         {
             short: "kp",
@@ -665,7 +673,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Sport"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kp.png"
         },
         {
             short: "ku",
@@ -675,7 +683,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Katholische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ku.png"
         },
         {
             short: "la",
@@ -685,7 +693,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/la.png"
         },
         {
             short: "ls",
@@ -695,7 +703,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Kunst"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ls.png"
         },
         {
             short: "ln",
@@ -705,7 +713,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Latein"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ln.png"
         },
         {
             short: "lo",
@@ -715,7 +723,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Musik", "Katholische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/lo.png"
         },
         {
             short: "loi",
@@ -725,7 +733,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/loi.png"
         },
         {
             short: "lu",
@@ -735,7 +743,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Französisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/lu.png"
         },
         {
             short: "na",
@@ -745,7 +753,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Spanisch", "Italienisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/na.png"
         },
         {
             short: "nd",
@@ -755,7 +763,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Latein", "Englisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/nd.png"
         },
         {
             short: "nu",
@@ -765,7 +773,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Französisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/nu.png"
         },
         {
             short: "of",
@@ -775,7 +783,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Italienisch", "Deutsch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/of.png"
         },
         {
             short: "ov",
@@ -785,7 +793,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Erdkunde", "Sport"],
             ags: ["Sport-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ov.png"
         },
         {
             short: "ph",
@@ -795,7 +803,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Deutsch"],
             ags: ["Theater-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ph.png"
         },
         {
             short: "pi",
@@ -805,7 +813,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Geschichte"],
             ags: ["Theater-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/pi.png"
         },
         {
             short: "po",
@@ -815,7 +823,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/po.png"
         },
         {
             short: "pz",
@@ -825,7 +833,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Sport"],
             ags: ["Sanitäts-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/pz.png"
         },
         {
             short: "rk",
@@ -835,7 +843,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Chemie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/rk.png"
         },
         {
             short: "ri",
@@ -845,7 +853,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Sport", "Physik"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ri.png"
         },
         {
             short: "ro",
@@ -855,7 +863,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Sozialwissenschaften"],
             ags: ["Jura-Basics-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ro.png"
         },
         {
             short: "sb",
@@ -865,7 +873,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sb.png"
         },
         {
             short: "sv",
@@ -875,7 +883,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Deutsch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sv.png"
         },
         {
             short: "sr",
@@ -885,7 +893,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Sport"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sr.png"
         },
         {
             short: "sz",
@@ -895,7 +903,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Chemie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sz.png"
         },
         {
             short: "sö",
@@ -905,7 +913,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/soe.png"
         },
         {
             short: "sc",
@@ -915,7 +923,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Französisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sc.png"
         },
         {
             short: "sf",
@@ -925,7 +933,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Französisch", "Geschichte"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sf.png"
         },
         {
             short: "se",
@@ -935,7 +943,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/se.png"
         },
         {
             short: "sn",
@@ -945,7 +953,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Erdkunde", "Sport", "Mathe"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sn.png"
         },
         {
             short: "st",
@@ -955,7 +963,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Biologie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/st.png"
         },
         {
             short: "sh",
@@ -965,7 +973,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Chemie", "Physik"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sh.png"
         },
         {
             short: "tb",
@@ -975,7 +983,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/tb.png"
         },
         {
             short: "tk",
@@ -985,7 +993,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/tk.png"
         },
         {
             short: "tr",
@@ -995,7 +1003,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Chemie"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/tr.png"
         },
         {
             short: "ut",
@@ -1005,7 +1013,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ut.png"
         },
         {
             short: "uf",
@@ -1015,7 +1023,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Geschichte"],
             ags: ["Rechtschreib-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/uf.png"
         },
         {
             short: "vo",
@@ -1025,7 +1033,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Kunst", "Philosophie", "Englisch"],
             ags: ["Video-AG"],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/vo.png"
         },
         {
             short: "we",
@@ -1035,7 +1043,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Sport"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/we.png"
         },
         {
             short: "wi",
@@ -1045,7 +1053,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Physik", "Mathe"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wi.png"
         },
         {
             short: "wg",
@@ -1055,7 +1063,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Mathe", "Erdkunde", "Katholische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wg.png"
         },
         {
             short: "wl",
@@ -1065,7 +1073,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Erdkunde"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wl.png"
         },
         {
             short: "wr",
@@ -1075,7 +1083,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wr.png"
         },
         {
             short: "wt",
@@ -1085,7 +1093,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Politik"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wt.png"
         },
         {
             short: "wd",
@@ -1095,7 +1103,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Geschichte", "Katholische Religion"],
             ags: [],
             ref: false,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wd.png"
         },
         {
             short: "be",
@@ -1105,7 +1113,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Informatik", "Mathe"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/be.png"
         },
         {
             short: "dm",
@@ -1115,7 +1123,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Sport"],
             ags: ["Bio-Chemie-AG"],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/dm.png"
         },
         {
             short: "eg",
@@ -1125,7 +1133,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Chemie", "Sport"],
             ags: ["Bio-Chemie-AG"],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/eg.png"
         },
         {
             short: "gi",
@@ -1135,7 +1143,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Italienisch", "Spanisch"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/gi.png"
         },
         {
             short: "kt",
@@ -1145,7 +1153,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/kt.png"
         },
         {
             short: "mc",
@@ -1155,7 +1163,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Geschichte", "Katholische Religion"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/mc.png"
         },
         {
             short: "pa",
@@ -1165,7 +1173,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Spanisch"],
             ags: ["DELE-AG", "Rechtschreib-AG"],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/pa.png"
         },
         {
             short: "sj",
@@ -1175,7 +1183,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Physik"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sj.png"
         },
         {
             short: "sp",
@@ -1185,7 +1193,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Musik"],
             ags: ["Jazz-Band-AG"],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sp.png"
         },
         {
             short: "wk",
@@ -1195,7 +1203,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Geschichte"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/wk.png"
         },
         {
             short: "ru",
@@ -1205,7 +1213,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Geschichte"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/ru.png"
         },
         {
             short: "sl",
@@ -1215,7 +1223,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Französisch", "Erdkunde"],
             ags: [],
             ref: true,
-            img: "https://source.unsplash.com/random/600x600"
+            img: "https://api.adorable.io/avatars/200/sl.png"
         }
     ]
 
@@ -1250,30 +1258,45 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     }
 
     hr {
-        width: 30%;
+        width: 50%;
+    }
+
+    .result {
+        max-width: 35%;
+        margin: 10px;
+        padding: 5px;
     }
 
     .card {
         border: 1px solid grey;
         border-radius: 2px;
         box-shadow: 10px 10px 20px grey;
-        max-width: 40%;
-        margin: 10px;
-        padding: 5px;
+        max-width: 35%;
+    }
+
+    .card > .result {
+        max-width: 100%;
     }
 
     td {
         padding: 10px 15px 13px 13px;
     }
 
-    @media only screen and (max-width: 600px) {
+    img {
+        float: right;
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+    @media only screen and (max-width: 800px) {
         input {
             width: 75%;
         }
-        .card {
+        .result, .card {
             margin: 5px;
-            max-width: 80%;
+            max-width: 95%;
         }
+        
     }
 
 </style>
