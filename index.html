@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!--HEY! DU DA! ( ͡° ͜ʖ ͡°) Möchtest du mich beim programmieren unterstützen? Schreib mich auf Discord an! (#Erizzle#0001)
+<!--HEY! DU DA! ( ͡° ͜ʖ ͡°) Möchtest du uns beim programmieren unterstützen? Schreib mich auf Discord an! (#Erizzle#0001)
     ───────────────────────────────
     ───────────────████─███────────
     ──────────────██▒▒▒█▒▒▒█───────
@@ -35,8 +35,9 @@
     ──▀████████▀▀███████▀──────────
 
 CHANGELOG
-0.2.6 - 21.11.2018
-Geile Dinge werden nun auch geil vorgeschlagen und hervorgehoben. Außerdem kann man nach Fächern suchen. Und die Bilder wurden geupdated. lol. GEIL!
+0.2.6 - 23.11.2018
+Der Schatten vom besten Ergebnis wurde geglättet. Das sieht bestimmt besser aus. Die Seite ist auch nicht mehr Hellgrau, sondern weiß.
+Außerdem wurden unnötige Code-Zeilen weggelöscht. HA!
 
 0.2.5 - 18.11.2018
 BILDER! Endlich gibt es geile Bilder für jeden Lehrer! Lehrer können mich unter eric.anhalt@gymnasium-essen-werden.de kontaktieren, damit ein Bild von ihnen hinzugefügt wird.
@@ -103,8 +104,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     <div id="app">
         <center>
             <h2>Alle Lehrer durchsuchen</h2>
-            <input v-model="input" type="text" placeholder="Suche nach Name oder Kürzel" />
-   
+            <input v-model="input" type="text" maxlength="20" placeholder="Suche nach Name oder Kürzel" />
+
 
             <br>
             <ul>
@@ -124,10 +125,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
         </center>
     </div>
 </body>
-
 <script>
-
-
     new Vue({
         el: '#app',
         data() {
@@ -144,7 +142,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
                     return;
                 this.bestResult = teachers.filter(e => e.short === search || e.name.toLowerCase() === search)[0];
                 this.results = teachers.filter(e =>
-                    e.short === search 
+                    e.short === search
                     || e.name.toLowerCase().indexOf(search) > -1
                     || e.subjects.filter(s => s.toLowerCase() === search).length > 0
                     || e.ags.filter(s => s.toLowerCase() === search).length > 0
@@ -154,7 +152,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
                         return -1;
                     else if (t.short === search)
                         return 1;
-                    return 0; 
+                    return 0;
                 })
             }
         }
@@ -199,9 +197,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.albrecht",
             name: "Albrecht",
             subjects: ["Informatik", "Chemie"],
-            ags: ["Informatik-AG"],
-            
-
+            ags: ["Informatik-AG"]
         },
         {
             short: "an",
@@ -209,9 +205,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.augustin",
             name: "Augustin",
             subjects: ["Evangelische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "au",
@@ -219,9 +213,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "h.augustin",
             name: "Augustin",
             subjects: ["Deutsch", "Geschichte", "Spanisch"],
-            ags: ["Poetry Slam-AG"],
-            
-
+            ags: ["Poetry Slam-AG"]
         },
         {
             short: "ba",
@@ -229,9 +221,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.bach",
             name: "Bach",
             subjects: ["Deutsch", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "bd",
@@ -239,9 +229,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.badiou",
             name: "Badiou",
             subjects: ["Latein", "Französisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "bf",
@@ -249,9 +237,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "s.bergerhoff",
             name: "Bergerhoff",
             subjects: ["Physik", "Biologie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "bg",
@@ -259,9 +245,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "n.berg-rose",
             name: "Berg-Rose",
             subjects: ["Deutsch", "Englisch", "Praktische Philosophie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "bl",
@@ -269,8 +253,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "u.blech",
             name: "Blech",
             subjects: ["Physik", "Evangelische Religion"],
-            ags: ["Astronomie-AG"],
-            
+            ags: ["Astronomie-AG"]
         },
         {
             short: "bo",
@@ -278,8 +261,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "n.bonnekessel",
             name: "Bonnekessel",
             subjects: ["Sport", "Latein"],
-            ags: ["Fußball-AG"],
-            
+            ags: ["Fußball-AG"]
         },
         {
             short: "bs",
@@ -296,8 +278,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "k.brill",
             name: "Brill",
             subjects: ["Deutsch", "Englisch"],
-            ags: [],
-            
+            ags: []
         },
         {
             short: "bz",
@@ -305,8 +286,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "i.buchholz",
             name: "Buchholz",
             subjects: ["Chemie", "Kunst"],
-            ags: [],
-            
+            ags: []
         },
         {
             short: "bj",
@@ -323,9 +303,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.buhr",
             name: "Buhr",
             subjects: ["Englisch", "Spanisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "bu",
@@ -333,9 +311,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.busse",
             name: "Dr. Busse",
             subjects: ["Physik", "Philosophie"],
-            ags: ["Bühnentechnik-AG", "Jugend forscht-AG"],
-            
-
+            ags: ["Bühnentechnik-AG", "Jugend forscht-AG"]
         },
         {
             short: "co",
@@ -343,9 +319,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "n.colesie",
             name: "Colesie",
             subjects: ["Französisch", "Geschichte"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "di",
@@ -353,9 +327,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.dittmann",
             name: "Dittmann",
             subjects: ["Italienisch", "Deutsch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "do",
@@ -363,9 +335,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.dornebeck",
             name: "Dornebeck",
             subjects: ["Deutsch", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "du",
@@ -373,9 +343,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "g.duecker",
             name: "Dücker",
             subjects: ["Musik"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ec",
@@ -383,9 +351,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "t.eickmann",
             name: "Eickmann",
             subjects: ["Mathe", "Englisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ed",
@@ -393,9 +359,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "n.eldesouki",
             name: "Eldesouki",
             subjects: ["Tanz"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "el",
@@ -403,9 +367,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.ellenbruch",
             name: "Ellenbruch",
             subjects: ["Englisch", "Kunst"],
-            ags: ["Bühnenbild-AG", "Rock- und Popmusik AG"],
-            
-
+            ags: ["Bühnenbild-AG", "Rock- und Popmusik AG"]
         },
         {
             short: "en",
@@ -413,9 +375,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.enk",
             name: "Enk",
             subjects: ["Mathe", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "er",
@@ -423,9 +383,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "z.ernst",
             name: "Ernst",
             subjects: ["Musik"],
-            ags: ["Chor-AG"],
-            
-
+            ags: ["Chor-AG"]
         },
         {
             short: "gm",
@@ -433,9 +391,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.gemein",
             name: "Gemein",
             subjects: ["Englisch", "Kunst"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "go",
@@ -443,9 +399,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.gollan",
             name: "Gollan",
             subjects: ["Kunst"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "gr",
@@ -453,9 +407,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "s.grote",
             name: "Grote",
             subjects: ["Physik", "Mathe"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ha",
@@ -463,9 +415,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.haase",
             name: "Haase",
             subjects: ["Biologie", "Sozialwissenschaften"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "he",
@@ -473,9 +423,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.heller-berendes",
             name: "Heller",
             subjects: ["Biologie", "Deutsch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "hc",
@@ -483,9 +431,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.hengstermann",
             name: "Hengstermann",
             subjects: ["Latein", "Englisch", "Katholische Religion", "Praktische Philosophie"],
-            ags: ["Religion/Philosophie bilingual-AG", "Altgriechisch-AG"],
-            
-
+            ags: ["Religion/Philosophie bilingual-AG", "Altgriechisch-AG"]
         },
         {
             short: "hm",
@@ -493,8 +439,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.hermey",
             name: "Hermey",
             subjects: ["Englisch", "Biologie"],
-            ags: [],
-            
+            ags: []
         },
         {
             short: "hy",
@@ -511,9 +456,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "t.hinz",
             name: "Hinz",
             subjects: ["Französisch", "Musik"],
-            ags: ["Chor-AG", "Orchester-AG"],
-            
-
+            ags: ["Chor-AG", "Orchester-AG"]
         },
         {
             short: "hp",
@@ -521,9 +464,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.hoerentrup",
             name: "Hörentrup",
             subjects: ["Deutsch", "Evangelische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ho",
@@ -531,9 +472,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "j.hoerentrup",
             name: "Hörentrup",
             subjects: ["Mathe", "Chemie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ja",
@@ -541,9 +480,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.jacobs-neumann",
             name: "Jacobs-Neumann",
             subjects: ["Erdkunde", "Politik"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ju",
@@ -551,9 +488,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.jungblut",
             name: "Jungblut",
             subjects: ["Sport", "Politik"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ka",
@@ -561,9 +496,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "l.kalb",
             name: "Kalb",
             subjects: ["Französisch", "Geschichte"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "kw",
@@ -571,9 +504,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "i.kallweit",
             name: "Dr. Kallweit",
             subjects: ["Mathe", "Chemie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "kn",
@@ -581,9 +512,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "f.kan",
             name: "Kan",
             subjects: ["Tanz"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "kk",
@@ -591,9 +520,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "k.kill-heimbuerger",
             name: "Kill",
             subjects: ["Deutsch", "Katholische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "km",
@@ -601,9 +528,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "j.kirchmeier",
             name: "Kirchmeier",
             subjects: ["Deutsch", "Englisch"],
-            ags: ["Schülerzeitung-AG", "Theater-AG"],
-            
-
+            ags: ["Schülerzeitung-AG", "Theater-AG"]
         },
         {
             short: "kg",
@@ -611,9 +536,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "t.klingsch",
             name: "Klingsch",
             subjects: ["Englisch", "Biologie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ko",
@@ -630,9 +553,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "s.kolip",
             name: "Kolip",
             subjects: ["Deutsch", "Englisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "kj",
@@ -640,9 +561,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "j.krieger",
             name: "Krieger",
             subjects: ["Deutsch", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "kr",
@@ -659,9 +578,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "s.kucki",
             name: "Kucki",
             subjects: ["Englisch", "Sport"],
-            ags: ["Schwimmen-AG"],
-            
-
+            ags: ["Schwimmen-AG"]
         },
         {
             short: "kp",
@@ -669,9 +586,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.kuepper",
             name: "Küpper",
             subjects: ["Mathe", "Sport"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ku",
@@ -679,9 +594,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.kukuczka",
             name: "Kukuczka",
             subjects: ["Deutsch", "Katholische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "la",
@@ -689,9 +602,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "h.lambertz",
             name: "Lambertz",
             subjects: ["Englisch", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ls",
@@ -699,9 +610,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.lankes",
             name: "Lankes",
             subjects: ["Mathe", "Kunst"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ln",
@@ -709,9 +618,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "j.lindner",
             name: "Lindner",
             subjects: ["Mathe", "Latein"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "lo",
@@ -719,9 +626,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "b.lohaus",
             name: "Lohaus",
             subjects: ["Musik", "Katholische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "loi",
@@ -729,9 +634,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "h.loigge",
             name: "Loigge",
             subjects: ["Tanz"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "lu",
@@ -739,9 +642,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.luft",
             name: "Luft",
             subjects: ["Deutsch", "Französisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "na",
@@ -749,9 +650,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "e.natalello",
             name: "Natalello",
             subjects: ["Spanisch", "Italienisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "nd",
@@ -759,9 +658,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.nieder",
             name: "Nieder",
             subjects: ["Latein", "Englisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "nu",
@@ -769,9 +666,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "k.nusselein",
             name: "Nusselein",
             subjects: ["Deutsch", "Französisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "of",
@@ -779,9 +674,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "g.offer",
             name: "Offer",
             subjects: ["Italienisch", "Deutsch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ov",
@@ -789,9 +682,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "b.overbeck",
             name: "Overbeck",
             subjects: ["Erdkunde", "Sport"],
-            ags: ["Sport-AG"],
-            
-
+            ags: ["Sport-AG"]
         },
         {
             short: "ph",
@@ -799,9 +690,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.philippsen",
             name: "Philippsen",
             subjects: ["Englisch", "Deutsch"],
-            ags: ["Theater-AG"],
-            
-
+            ags: ["Theater-AG"]
         },
         {
             short: "pi",
@@ -809,9 +698,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "g.piva",
             name: "Piva",
             subjects: ["Englisch", "Geschichte"],
-            ags: ["Theater-AG"],
-            
-
+            ags: ["Theater-AG"]
         },
         {
             short: "po",
@@ -819,9 +706,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.pomp-khalil",
             name: "Pomp-Khalil",
             subjects: ["Tanz"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "pz",
@@ -829,9 +714,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "k.przybilla",
             name: "Przybilla",
             subjects: ["Biologie", "Sport"],
-            ags: ["Sanitäts-AG"],
-            
-			
+            ags: ["Sanitäts-AG"]
         },
         {
             short: "rk",
@@ -839,9 +722,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.ricken",
             name: "Ricken",
             subjects: ["Mathe", "Chemie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ri",
@@ -858,9 +739,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "h.rhode",
             name: "Rhode",
             subjects: ["Englisch", "Sozialwissenschaften"],
-            ags: ["Jura-Basics-AG"],
-            
-
+            ags: ["Jura-Basics-AG"]
         },
         {
             short: "sb",
@@ -868,9 +747,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "s.schauenburg",
             name: "Schauenburg",
             subjects: ["Tanz"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "sv",
@@ -878,9 +755,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "s.scheuvens",
             name: "Scheuvens",
             subjects: ["Mathe", "Deutsch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "sr",
@@ -888,9 +763,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "k.schmerler",
             name: "Schmerler",
             subjects: ["Mathe", "Sport"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "sz",
@@ -898,9 +771,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "k.schmitz",
             name: "Schmitz",
             subjects: ["Mathe", "Chemie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "sö",
@@ -917,9 +788,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "i.schoenemann",
             name: "Schönemann",
             subjects: ["Englisch", "Französisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "sf",
@@ -927,9 +796,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "l.scholich",
             name: "Scholich",
             subjects: ["Französisch", "Geschichte"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "se",
@@ -939,7 +806,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Tanz"],
             ags: [],
             ref: true
-
         },
         {
             short: "sn",
@@ -956,9 +822,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.stahl",
             name: "Stahl",
             subjects: ["Mathe", "Biologie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "sh",
@@ -966,9 +830,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.strehl",
             name: "Dr. Strehl",
             subjects: ["Chemie", "Physik"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "tb",
@@ -976,9 +838,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "u.tebart",
             name: "Tebart",
             subjects: ["Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "tk",
@@ -986,9 +846,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.tekuelve",
             name: "Tekülve",
             subjects: ["Deutsch", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "tr",
@@ -996,9 +854,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "h.troeger",
             name: "Tröger",
             subjects: ["Deutsch", "Chemie"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "ut",
@@ -1006,9 +862,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "p.unterbarnscheidt",
             name: "Unterbarnscheidt",
             subjects: ["Deutsch", "Englisch"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "uf",
@@ -1016,9 +870,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "t.unterfeld",
             name: "Unterfeld",
             subjects: ["Deutsch", "Geschichte"],
-            ags: ["Rechtschreib-AG"],
-            
-
+            ags: ["Rechtschreib-AG"]
         },
         {
             short: "vo",
@@ -1026,9 +878,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "r.vorholt",
             name: "Vorholt",
             subjects: ["Kunst", "Philosophie", "Englisch"],
-            ags: ["Video-AG"],
-            
-
+            ags: ["Video-AG"]
         },
         {
             short: "we",
@@ -1036,9 +886,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "n.westphal",
             name: "Westphal",
             subjects: ["Englisch", "Sport"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "wi",
@@ -1046,9 +894,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "h.wiesemann",
             name: "Wiesemann",
             subjects: ["Physik", "Mathe"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "wg",
@@ -1056,9 +902,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "j.wiggen",
             name: "Wiggen",
             subjects: ["Mathe", "Erdkunde", "Katholische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "wl",
@@ -1066,9 +910,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "a.wilms",
             name: "Wilms",
             subjects: ["Biologie", "Erdkunde"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "wr",
@@ -1078,7 +920,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: true
-
         },
         {
             short: "wt",
@@ -1086,9 +927,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "m.wintering",
             name: "Wintering",
             subjects: ["Deutsch", "Politik"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "wd",
@@ -1096,9 +935,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             email: "c.wodopia",
             name: "Wodopia",
             subjects: ["Deutsch", "Geschichte", "Katholische Religion"],
-            ags: [],
-            
-
+            ags: []
         },
         {
             short: "be",
@@ -1108,7 +945,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Informatik", "Mathe"],
             ags: [],
             ref: true
-
         },
         {
             short: "dm",
@@ -1118,7 +954,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Biologie", "Sport"],
             ags: ["Bio-Chemie-AG"],
             ref: true
-
         },
         {
             short: "eg",
@@ -1137,7 +972,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Italienisch", "Spanisch"],
             ags: [],
             ref: true
-
         },
         {
             short: "kt",
@@ -1147,7 +981,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Englisch"],
             ags: [],
             ref: true
-
         },
         {
             short: "mc",
@@ -1157,7 +990,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Geschichte", "Katholische Religion"],
             ags: [],
             ref: true
-
         },
         {
             short: "pa",
@@ -1167,7 +999,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Spanisch"],
             ags: ["DELE-AG", "Rechtschreib-AG"],
             ref: true
-
         },
         {
             short: "sj",
@@ -1177,7 +1008,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Physik"],
             ags: [],
             ref: true
-
         },
         {
             short: "sp",
@@ -1187,7 +1017,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Musik"],
             ags: ["Jazz-Band-AG"],
             ref: true
-
         },
         {
             short: "wk",
@@ -1197,7 +1026,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Deutsch", "Geschichte"],
             ags: [],
             ref: true
-
         },
         {
             short: "ru",
@@ -1207,7 +1035,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Englisch", "Geschichte"],
             ags: [],
             ref: true
-
         },
         {
             short: "sl",
@@ -1217,7 +1044,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             subjects: ["Französisch", "Erdkunde"],
             ags: [],
             ref: true
-
         }
     ]
 
@@ -1244,10 +1070,10 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     input {
         padding: 10px 30px;
         width: 40%;
-		border: none;
-		outline: none;
-		flex: 100%;
-		box-shadow: 2px 2px 4px 1px #999
+        border: none;
+        outline: none;
+        flex: 100%;
+        box-shadow: 2px 2px 4px 1px #999
     }
 
     ul {
@@ -1268,7 +1094,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     .card {
         border: 1px solid grey;
         border-radius: 2px;
-        box-shadow: 10px 10px 20px grey;
+        box-shadow: 7px 7px 6px grey;
         max-width: 35%;
     }
 
