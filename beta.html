@@ -35,6 +35,9 @@
     ──▀████████▀▀███████▀──────────
 
 CHANGELOG
+0.2.6 - 21.11.2018
+Geile Dinge werden nun auch geil vorgeschlagen und hervorgehoben. Außerdem kann man nach Fächern suchen. Und die Bilder wurden geupdated. lol. GEIL!
+
 0.2.5 - 18.11.2018
 BILDER! Endlich gibt es geile Bilder für jeden Lehrer! Lehrer können mich unter eric.anhalt@gymnasium-essen-werden.de kontaktieren, damit ein Bild von ihnen hinzugefügt wird.
 
@@ -83,12 +86,11 @@ kann direkt auf die gesamte Datenbank zugegriffen werden. Nach dem "Prüfen" wir
 
 0.0.2 - 12.09.2018
 Die Liste der Lehrer wurde erweitert. Referendare werden erkannt, und bei allen Lehrern wurde das Geschlecht angegeben.
-Einige Rechtschribfehler wurden behoben ^-^
+Einige Rechtschreibfehler wurden behoben ^-^
 
 0.0.1 - 02.09.2018
 Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
 -->
-
 <head>
     <title>GEW-Lehrer-Info</title>
     <meta charset="utf-8" />
@@ -97,28 +99,23 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
     <div id="app">
         <center>
             <h2>Alle Lehrer durchsuchen</h2>
-            <input v-model="input" type="text" maxlength="20" placeholder="Suche nach Name oder Kürzel" />
-
-            <br><br>
-            <div v-if="bestResult" class="card">
-                <teacher :teacher="bestResult"></teacher>
-            </div>
+            <input v-model="input" type="text" placeholder="Suche nach Name oder Kürzel" />
+   
 
             <br>
-            <h2 v-if="results && results.length > 0 && bestResult">Weitere Ergebnisse:</h2>
             <ul>
-                <li v-for="teacher in results">
-                    <teacher :teacher="teacher"></teacher>
-                    <hr>
+                <li v-for="(teacher, index) in results" :key="teacher.short">
+                    <teacher :class="{card: index === 0}" :teacher="teacher"></teacher>
+                    <hr v-if="index > 0">
+                    <br v-else>
                 </li>
             </ul>
 
-            <h3 v-if="!bestResult && (!results || results.length === 0) && input.length > 0">Keine Ergebnisse</h3>
+            <h3 v-if="(!results || results.length === 0) && input.length > 0">Keine Ergebnisse</h3>
 
             <h5>© Eric Anhalt & Jan Schnorrenberg 2018</h5>
             <a class="button" href="https://discord.gg/cBYeegX">GEW-DISCORD</a>
@@ -136,7 +133,6 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
         data() {
             return {
                 input: '',
-                bestResult: null,
                 results: null
             }
         },
@@ -146,8 +142,20 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
                 this.results = this.bestResult = null;
                 if (search === null || search.length === 0)
                     return;
-                this.bestResult = teachers.filter(e => e.short === search)[0];
-                this.results = teachers.filter(e => e.short !== search && (e.name.toLowerCase().indexOf(search) > -1 || e.subjects.includes(search) || e.ags.includes(search)))
+                this.bestResult = teachers.filter(e => e.short === search || e.name.toLowerCase() === search)[0];
+                this.results = teachers.filter(e =>
+                    e.short === search 
+                    || e.name.toLowerCase().indexOf(search) > -1
+                    || e.subjects.filter(s => s.toLowerCase() === search).length > 0
+                    || e.ags.filter(s => s.toLowerCase() === search).length > 0
+                )
+                this.results.sort((o, t) => {
+                    if (o.short === search)
+                        return -1;
+                    else if (t.short === search)
+                        return 1;
+                    return 0; 
+                })
             }
         }
     });
@@ -155,9 +163,9 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     Vue.component('teacher', {
         props: ['teacher'],
         template: `
-        <div v-if="teacher" class="result">
-                
-                <img v-if="teacher.img" :src="teacher.img"/>
+        <div v-if="teacher" class="result">   
+                <img v-if="teacher.pic" :src="'img/' + teacher.short + '.png'"/>
+                <img v-else :src="'img/' + teacher.gender + '.svg'" />
             <table>
             <tr>
                 <td><b>Kürzel</b></td>
@@ -166,7 +174,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             </tr>
             <tr>
                 <td><b>Name</b></td>
-                <td>{{ teacher.gender === 'm' ? 'Herr' : 'Frau' }} {{ teacher.name }}</td>
+                <td>{{ teacher.gender === 'm' ? 'Herr' : 'Frau' }} {{ teacher.name }} <span v-if="teacher.ref">(Referendar)</span></td>
             </tr>
             <tr>
                 <td><b>Unterrichtet</b></td>
@@ -192,8 +200,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Albrecht",
             subjects: ["Informatik", "Chemie"],
             ags: ["Informatik-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/.png"
+            
+
         },
         {
             short: "an",
@@ -202,8 +210,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Augustin",
             subjects: ["Evangelische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/an.png"
+            
+
         },
         {
             short: "au",
@@ -212,8 +220,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Augustin",
             subjects: ["Deutsch", "Geschichte", "Spanisch"],
             ags: ["Poetry Slam-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/au.png"
+            
+
         },
         {
             short: "ba",
@@ -222,8 +230,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Bach",
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ba.png"
+            
+
         },
         {
             short: "bd",
@@ -232,8 +240,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Badiou",
             subjects: ["Latein", "Französisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bd.png"
+            
+
         },
         {
             short: "bf",
@@ -242,8 +250,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Bergerhoff",
             subjects: ["Physik", "Biologie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bf.png"
+            
+
         },
         {
             short: "bg",
@@ -252,8 +260,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Berg-Rose",
             subjects: ["Deutsch", "Englisch", "Praktische Philosophie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bg.png"
+            
+
         },
         {
             short: "bl",
@@ -262,8 +270,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Blech",
             subjects: ["Physik", "Evangelische Religion"],
             ags: ["Astronomie-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bl.png"
+            
         },
         {
             short: "bo",
@@ -272,8 +279,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Bonnekessel",
             subjects: ["Sport", "Latein"],
             ags: ["Fußball-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bo.png"
+            
         },
         {
             short: "bs",
@@ -282,8 +288,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Bosset",
             subjects: ["Englisch", "Kunst"],
             ags: [],
-            ref: false,
-            img: "img/Bosset.png"
+            pic: true
         },
         {
             short: "br",
@@ -292,8 +297,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Brill",
             subjects: ["Deutsch", "Englisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/br.png"
+            
         },
         {
             short: "bz",
@@ -302,8 +306,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Buchholz",
             subjects: ["Chemie", "Kunst"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bz.png"
+            
         },
         {
             short: "bj",
@@ -312,8 +315,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dr. Buhr",
             subjects: ["Deutsch", "Musik"],
             ags: ["Orchester-AG"],
-            ref: false,
-            img: "img/Buhr.png"
+            pic: true
         },
         {
             short: "mb",
@@ -322,8 +324,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Buhr",
             subjects: ["Englisch", "Spanisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/mb.png"
+            
+
         },
         {
             short: "bu",
@@ -332,8 +334,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dr. Busse",
             subjects: ["Physik", "Philosophie"],
             ags: ["Bühnentechnik-AG", "Jugend forscht-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/bu.png"
+            
+
         },
         {
             short: "co",
@@ -342,8 +344,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Colesie",
             subjects: ["Französisch", "Geschichte"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/co.png"
+            
+
         },
         {
             short: "di",
@@ -352,8 +354,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dittmann",
             subjects: ["Italienisch", "Deutsch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/di.png"
+            
+
         },
         {
             short: "do",
@@ -362,8 +364,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dornebeck",
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/do.png"
+            
+
         },
         {
             short: "du",
@@ -372,8 +374,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dücker",
             subjects: ["Musik"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/du.png"
+            
+
         },
         {
             short: "ec",
@@ -382,8 +384,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Eickmann",
             subjects: ["Mathe", "Englisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ec.png"
+            
+
         },
         {
             short: "ed",
@@ -392,8 +394,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Eldesouki",
             subjects: ["Tanz"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ed.png"
+            
+
         },
         {
             short: "el",
@@ -402,8 +404,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Ellenbruch",
             subjects: ["Englisch", "Kunst"],
             ags: ["Bühnenbild-AG", "Rock- und Popmusik AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/el.png"
+            
+
         },
         {
             short: "en",
@@ -412,8 +414,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Enk",
             subjects: ["Mathe", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/en.png"
+            
+
         },
         {
             short: "er",
@@ -422,8 +424,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Ernst",
             subjects: ["Musik"],
             ags: ["Chor-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/er.png"
+            
+
         },
         {
             short: "gm",
@@ -432,8 +434,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Gemein",
             subjects: ["Englisch", "Kunst"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/gm.png"
+            
+
         },
         {
             short: "go",
@@ -442,8 +444,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Gollan",
             subjects: ["Kunst"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/go.png"
+            
+
         },
         {
             short: "gr",
@@ -452,8 +454,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Grote",
             subjects: ["Physik", "Mathe"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/gr.png"
+            
+
         },
         {
             short: "ha",
@@ -462,8 +464,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Haase",
             subjects: ["Biologie", "Sozialwissenschaften"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ha.png"
+            
+
         },
         {
             short: "he",
@@ -472,8 +474,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Heller",
             subjects: ["Biologie", "Deutsch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/he.png"
+            
+
         },
         {
             short: "hc",
@@ -482,8 +484,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Hengstermann",
             subjects: ["Latein", "Englisch", "Katholische Religion", "Praktische Philosophie"],
             ags: ["Religion/Philosophie bilingual-AG", "Altgriechisch-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/hc.png"
+            
+
         },
         {
             short: "hm",
@@ -492,8 +494,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Hermey",
             subjects: ["Englisch", "Biologie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/hm.png"
+            
         },
         {
             short: "hy",
@@ -502,8 +503,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Hermey",
             subjects: ["Biologie", "Sport", "Mathe"],
             ags: [],
-            ref: false,
-            img: "img/Hermey.png"
+            pic: true
         },
         {
             short: "hi",
@@ -512,8 +512,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Hinz",
             subjects: ["Französisch", "Musik"],
             ags: ["Chor-AG", "Orchester-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/hi.png"
+            
+
         },
         {
             short: "hp",
@@ -522,8 +522,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Hörentrup",
             subjects: ["Deutsch", "Evangelische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/hp.png"
+            
+
         },
         {
             short: "ho",
@@ -532,8 +532,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Hörentrup",
             subjects: ["Mathe", "Chemie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ho.png"
+            
+
         },
         {
             short: "ja",
@@ -542,8 +542,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Jacobs-Neumann",
             subjects: ["Erdkunde", "Politik"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ja.png"
+            
+
         },
         {
             short: "ju",
@@ -552,8 +552,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Jungblut",
             subjects: ["Sport", "Politik"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ju.png"
+            
+
         },
         {
             short: "ka",
@@ -562,8 +562,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kalb",
             subjects: ["Französisch", "Geschichte"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ka.png"
+            
+
         },
         {
             short: "kw",
@@ -572,8 +572,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dr. Kallweit",
             subjects: ["Mathe", "Chemie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kw.png"
+            
+
         },
         {
             short: "kn",
@@ -582,8 +582,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kan",
             subjects: ["Tanz"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kn.png"
+            
+
         },
         {
             short: "kk",
@@ -592,8 +592,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kill",
             subjects: ["Deutsch", "Katholische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kk.png"
+            
+
         },
         {
             short: "km",
@@ -602,8 +602,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kirchmeier",
             subjects: ["Deutsch", "Englisch"],
             ags: ["Schülerzeitung-AG", "Theater-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/km.png"
+            
+
         },
         {
             short: "kg",
@@ -612,8 +612,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Klingsch",
             subjects: ["Englisch", "Biologie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kg.png"
+            
+
         },
         {
             short: "ko",
@@ -622,8 +622,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dr. Kohnen",
             subjects: ["Biologie", "Chemie"],
             ags: ["Chemie-AG", "Jugend forscht-AG"],
-            ref: false,
-            img: "img/Kohnen.png"
+            pic: true
         },
         {
             short: "kl",
@@ -632,8 +631,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kolip",
             subjects: ["Deutsch", "Englisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kl.png"
+            
+
         },
         {
             short: "kj",
@@ -642,8 +641,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Krieger",
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kj.png"
+            
+
         },
         {
             short: "kr",
@@ -652,8 +651,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Krister",
             subjects: ["Englisch", "Geschichte"],
             ags: ["Geschichts-AG"],
-            ref: false,
-            img: "img/Krister.png"
+            pic: true
         },
         {
             short: "ki",
@@ -662,8 +660,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kucki",
             subjects: ["Englisch", "Sport"],
             ags: ["Schwimmen-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ki.png"
+            
+
         },
         {
             short: "kp",
@@ -672,8 +670,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Küpper",
             subjects: ["Mathe", "Sport"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/kp.png"
+            
+
         },
         {
             short: "ku",
@@ -682,8 +680,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kukuczka",
             subjects: ["Deutsch", "Katholische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ku.png"
+            
+
         },
         {
             short: "la",
@@ -692,8 +690,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Lambertz",
             subjects: ["Englisch", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/la.png"
+            
+
         },
         {
             short: "ls",
@@ -702,8 +700,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Lankes",
             subjects: ["Mathe", "Kunst"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ls.png"
+            
+
         },
         {
             short: "ln",
@@ -712,8 +710,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Lindner",
             subjects: ["Mathe", "Latein"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ln.png"
+            
+
         },
         {
             short: "lo",
@@ -722,8 +720,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Lohaus",
             subjects: ["Musik", "Katholische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/lo.png"
+            
+
         },
         {
             short: "loi",
@@ -732,8 +730,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Loigge",
             subjects: ["Tanz"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/loi.png"
+            
+
         },
         {
             short: "lu",
@@ -742,8 +740,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Luft",
             subjects: ["Deutsch", "Französisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/lu.png"
+            
+
         },
         {
             short: "na",
@@ -752,8 +750,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Natalello",
             subjects: ["Spanisch", "Italienisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/na.png"
+            
+
         },
         {
             short: "nd",
@@ -762,8 +760,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Nieder",
             subjects: ["Latein", "Englisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/nd.png"
+            
+
         },
         {
             short: "nu",
@@ -772,8 +770,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Nusselein",
             subjects: ["Deutsch", "Französisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/nu.png"
+            
+
         },
         {
             short: "of",
@@ -782,8 +780,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Offer",
             subjects: ["Italienisch", "Deutsch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/of.png"
+            
+
         },
         {
             short: "ov",
@@ -792,8 +790,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Overbeck",
             subjects: ["Erdkunde", "Sport"],
             ags: ["Sport-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ov.png"
+            
+
         },
         {
             short: "ph",
@@ -802,8 +800,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Philippsen",
             subjects: ["Englisch", "Deutsch"],
             ags: ["Theater-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ph.png"
+            
+
         },
         {
             short: "pi",
@@ -812,8 +810,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Piva",
             subjects: ["Englisch", "Geschichte"],
             ags: ["Theater-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/pi.png"
+            
+
         },
         {
             short: "po",
@@ -822,8 +820,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Pomp-Khalil",
             subjects: ["Tanz"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/po.png"
+            
+
         },
         {
             short: "pz",
@@ -832,8 +830,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Przybilla",
             subjects: ["Biologie", "Sport"],
             ags: ["Sanitäts-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/pz.png"
+            
+			
         },
         {
             short: "rk",
@@ -842,8 +840,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Ricken",
             subjects: ["Mathe", "Chemie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/rk.png"
+            
+
         },
         {
             short: "ri",
@@ -852,8 +850,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Rieder",
             subjects: ["Mathe", "Sport", "Physik"],
             ags: [],
-            ref: false,
-            img: "img/Rieder.png"
+            pic: true
         },
         {
             short: "ro",
@@ -862,8 +859,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Rhode",
             subjects: ["Englisch", "Sozialwissenschaften"],
             ags: ["Jura-Basics-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ro.png"
+            
+
         },
         {
             short: "sb",
@@ -872,8 +869,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schauenburg",
             subjects: ["Tanz"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sb.png"
+            
+
         },
         {
             short: "sv",
@@ -882,8 +879,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Scheuvens",
             subjects: ["Mathe", "Deutsch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sv.png"
+            
+
         },
         {
             short: "sr",
@@ -892,8 +889,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schmerler",
             subjects: ["Mathe", "Sport"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sr.png"
+            
+
         },
         {
             short: "sz",
@@ -902,8 +899,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schmitz",
             subjects: ["Mathe", "Chemie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sz.png"
+            
+
         },
         {
             short: "sö",
@@ -912,8 +909,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schönau",
             subjects: ["Deutsch", "Englisch"],
             ags: [],
-            ref: false,
-            img: "img/Schoenau.png"
+            pic: true
         },
         {
             short: "sc",
@@ -922,8 +918,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schönemann",
             subjects: ["Englisch", "Französisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sc.png"
+            
+
         },
         {
             short: "sf",
@@ -932,8 +928,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Scholich",
             subjects: ["Französisch", "Geschichte"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sf.png"
+            
+
         },
         {
             short: "se",
@@ -942,8 +938,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schwander",
             subjects: ["Tanz"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/se.png"
+            ref: true
+
         },
         {
             short: "sn",
@@ -952,8 +948,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Söllner",
             subjects: ["Erdkunde", "Sport", "Mathe"],
             ags: [],
-            ref: false,
-            img: "img/Soellner.png"
+            pic: true
         },
         {
             short: "st",
@@ -962,8 +957,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Stahl",
             subjects: ["Mathe", "Biologie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/st.png"
+            
+
         },
         {
             short: "sh",
@@ -972,8 +967,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dr. Strehl",
             subjects: ["Chemie", "Physik"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/sh.png"
+            
+
         },
         {
             short: "tb",
@@ -982,8 +977,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Tebart",
             subjects: ["Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/tb.png"
+            
+
         },
         {
             short: "tk",
@@ -992,8 +987,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Tekülve",
             subjects: ["Deutsch", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/tk.png"
+            
+
         },
         {
             short: "tr",
@@ -1002,8 +997,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Tröger",
             subjects: ["Deutsch", "Chemie"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/tr.png"
+            
+
         },
         {
             short: "ut",
@@ -1012,8 +1007,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Unterbarnscheidt",
             subjects: ["Deutsch", "Englisch"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/ut.png"
+            
+
         },
         {
             short: "uf",
@@ -1022,8 +1017,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Unterfeld",
             subjects: ["Deutsch", "Geschichte"],
             ags: ["Rechtschreib-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/uf.png"
+            
+
         },
         {
             short: "vo",
@@ -1032,8 +1027,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Vorholt",
             subjects: ["Kunst", "Philosophie", "Englisch"],
             ags: ["Video-AG"],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/vo.png"
+            
+
         },
         {
             short: "we",
@@ -1042,8 +1037,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Westphal",
             subjects: ["Englisch", "Sport"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/we.png"
+            
+
         },
         {
             short: "wi",
@@ -1052,8 +1047,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Wiesemann",
             subjects: ["Physik", "Mathe"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/wi.png"
+            
+
         },
         {
             short: "wg",
@@ -1062,8 +1057,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Wiggen",
             subjects: ["Mathe", "Erdkunde", "Katholische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/wg.png"
+            
+
         },
         {
             short: "wl",
@@ -1072,8 +1067,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Wilms",
             subjects: ["Biologie", "Erdkunde"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/wl.png"
+            
+
         },
         {
             short: "wr",
@@ -1082,8 +1077,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Winkler",
             subjects: ["Deutsch", "Englisch"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/wr.png"
+            ref: true
+
         },
         {
             short: "wt",
@@ -1092,8 +1087,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Wintering",
             subjects: ["Deutsch", "Politik"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/wt.png"
+            
+
         },
         {
             short: "wd",
@@ -1102,8 +1097,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Wodopia",
             subjects: ["Deutsch", "Geschichte", "Katholische Religion"],
             ags: [],
-            ref: false,
-            img: "https://api.adorable.io/avatars/200/wd.png"
+            
+
         },
         {
             short: "be",
@@ -1112,8 +1107,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Beeck",
             subjects: ["Informatik", "Mathe"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/be.png"
+            ref: true
+
         },
         {
             short: "dm",
@@ -1122,8 +1117,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Dreesmann",
             subjects: ["Biologie", "Sport"],
             ags: ["Bio-Chemie-AG"],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/dm.png"
+            ref: true
+
         },
         {
             short: "eg",
@@ -1132,8 +1127,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Elling",
             subjects: ["Chemie", "Sport"],
             ags: ["Bio-Chemie-AG"],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/eg.png"
+            ref: true
         },
         {
             short: "gi",
@@ -1142,8 +1136,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Giuri",
             subjects: ["Italienisch", "Spanisch"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/gi.png"
+            ref: true
+
         },
         {
             short: "kt",
@@ -1152,8 +1146,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Kirkopoulos",
             subjects: ["Deutsch", "Englisch"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/kt.png"
+            ref: true
+
         },
         {
             short: "mc",
@@ -1162,8 +1156,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Macanovic",
             subjects: ["Geschichte", "Katholische Religion"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/mc.png"
+            ref: true
+
         },
         {
             short: "pa",
@@ -1172,8 +1166,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Pater",
             subjects: ["Deutsch", "Spanisch"],
             ags: ["DELE-AG", "Rechtschreib-AG"],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/pa.png"
+            ref: true
+
         },
         {
             short: "sj",
@@ -1182,8 +1176,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Schotzki",
             subjects: ["Englisch", "Physik"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/sj.png"
+            ref: true
+
         },
         {
             short: "sp",
@@ -1192,8 +1186,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Sinkemat",
             subjects: ["Musik"],
             ags: ["Jazz-Band-AG"],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/sp.png"
+            ref: true
+
         },
         {
             short: "wk",
@@ -1202,8 +1196,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Werner",
             subjects: ["Deutsch", "Geschichte"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/wk.png"
+            ref: true
+
         },
         {
             short: "ru",
@@ -1212,8 +1206,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Rusch",
             subjects: ["Englisch", "Geschichte"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/ru.png"
+            ref: true
+
         },
         {
             short: "sl",
@@ -1222,8 +1216,8 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
             name: "Stahl",
             subjects: ["Französisch", "Erdkunde"],
             ags: [],
-            ref: true,
-            img: "https://api.adorable.io/avatars/200/sl.png"
+            ref: true
+
         }
     ]
 
@@ -1248,8 +1242,12 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     }
 
     input {
-        padding: 5px 30px;
+        padding: 10px 30px;
         width: 40%;
+		border: none;
+		outline: none;
+		flex: 100%;
+		box-shadow: 2px 2px 4px 1px #999
     }
 
     ul {
@@ -1274,7 +1272,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
         max-width: 35%;
     }
 
-    .card > .result {
+    .card>.result {
         max-width: 100%;
     }
 
@@ -1286,18 +1284,19 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
         float: right;
         max-width: 50px;
         max-height: 50px;
-		border-radius: 30%;
+        border-radius: 30%;
     }
 
     @media only screen and (max-width: 800px) {
         input {
             width: 75%;
         }
-        .result, .card {
+
+        .result,
+        .card {
             margin: 5px;
             max-width: 95%;
         }
-        
-    }
 
+    }
 </style>
