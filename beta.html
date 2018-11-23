@@ -103,7 +103,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
     <div id="app">
         <center>
             <h2>Alle Lehrer durchsuchen</h2>
-            <input v-model="input" type="text" placeholder="Suche nach Name oder Kürzel" />
+            <input v-model="input" type="text" placeholder="Suche nach Name, Kürzel oder Fach" />
    
 
             <br>
@@ -117,7 +117,7 @@ Das Grundkonzept der Seite ist fertig. Alle Lehrer wurden hinzugefügt.
 
             <h3 v-if="(!results || results.length === 0) && input.length > 0">Keine Ergebnisse</h3>
 
-            <h5>© Eric Anhalt & Jan Schnorrenberg 2018 (BETA)</h5>
+            <h5>© Eric Anhalt & Jan Schnorrenberg 2018 (v.0.2.6)</h5>
             <a class="button" href="https://discord.gg/cBYeegX">GEW-DISCORD</a>
             <br><br>
             <a href="Ferien.html">Wann sind Ferien?</a>
