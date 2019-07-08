@@ -81,6 +81,10 @@
                 <td>{{ teacher.gender === 'm' ? 'Herr' : 'Frau' }} {{ teacher.name }} <span v-if="teacher.ref">(Referendar)</span></td>
             </tr>
             <tr>
+                <td><b>Vorname</b></td>
+                <td>{{ teacher.vorname }}</td>
+            </tr>
+            <tr>
                 <td><b>Unterrichtet</b></td>
                 <td>{{ teacher.subjects.join(', ') }}</td>
             </tr>
@@ -101,7 +105,8 @@
             short: "al",
             gender: "m",
             email: "m.albrecht",
-            name: "Michael Albrecht",
+            name: "Albrecht",
+            vorname: "Michael,
             subjects: ["Informatik", "Chemie"],
             ags: ["Informatik-AG"],
             pic: true
@@ -111,6 +116,7 @@
             gender: "m",
             email: "h.augustin",
             name: "Augustin",
+            vorname: "Helge",
             subjects: ["Deutsch", "Geschichte", "Spanisch"],
             ags: ["Poetry Slam-AG"]
         },
@@ -119,6 +125,7 @@
             gender: "w",
             email: "c.bach",
             name: "Bach",
+            vorname: "Christine",
             subjects: ["Deutsch", "Erdkunde"],
             ags: []
         },
@@ -860,7 +867,7 @@
         {
             short: "gu",
             gender: "m", // Nicht sicher
-            email: "NICHT-SICHER", // Nicht sicher
+            email: "Keine Angaben", // Nicht sicher
             name: "Güntermann",
             subjects: ["Englisch", "Katholische Religion"],
             ags: [],
