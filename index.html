@@ -81,10 +81,6 @@
                 <td>{{ teacher.gender === 'm' ? 'Herr' : 'Frau' }} {{ teacher.name }} <span v-if="teacher.ref">(Referendar)</span></td>
             </tr>
             <tr>
-                <td><b>Vorname</b></td>
-                <td>{{ teacher.vorname }}</td>
-            </tr>
-            <tr>
                 <td><b>Unterrichtet</b></td>
                 <td>{{ teacher.subjects.join(', ') }}</td>
             </tr>
@@ -105,8 +101,7 @@
             short: "al",
             gender: "m",
             email: "m.albrecht",
-            name: "Albrecht",
-            vorname: "Michael,
+            name: "Michael Albrecht",
             subjects: ["Informatik", "Chemie"],
             ags: ["Informatik-AG"],
             pic: true
@@ -115,8 +110,7 @@
             short: "au",
             gender: "m",
             email: "h.augustin",
-            name: "Augustin",
-            vorname: "Helge",
+            name: "Helge Augustin",
             subjects: ["Deutsch", "Geschichte", "Spanisch"],
             ags: ["Poetry Slam-AG"]
         },
@@ -124,8 +118,7 @@
             short: "ba",
             gender: "w",
             email: "c.bach",
-            name: "Bach",
-            vorname: "Christine",
+            name: "Christine Bach",
             subjects: ["Deutsch", "Erdkunde"],
             ags: []
         },
@@ -133,7 +126,7 @@
             short: "bd",
             gender: "w",
             email: "c.badiou",
-            name: "Badiou",
+            name: "Claire Badiou",
             subjects: ["Latein", "Französisch"],
             ags: []
         },
@@ -141,7 +134,7 @@
             short: "be",
             gender: "m",
             email: "y.beeck",
-            name: "Beeck",
+            name: "Yannick Beeck",
             subjects: ["Informatik", "Mathe"],
             ags: [],
             pic: true
